@@ -1,0 +1,1156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Secret Birthday Surprise ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #ff9acb;
+  --soft: #ffd7e9;
+  --purple: #c49aff;
+  --gold: #ffe2a6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 50% 15%, #40215f 0%, transparent 48%),
+    radial-gradient(ellipse at 10% 85%, #292451 0%, transparent 50%),
+    linear-gradient(145deg, #080b1b, #17132f 55%, #100c24);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .55;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, white 99%, transparent),
+    radial-gradient(2px 2px at 30% 70%, white 99%, transparent),
+    radial-gradient(1px 1px at 75% 25%, white 99%, transparent),
+    radial-gradient(2px 2px at 90% 80%, white 99%, transparent),
+    radial-gradient(1px 1px at 50% 50%, white 99%, transparent);
+  background-size: 190px 190px;
+}
+
+button, input { font-family: inherit; }
+
+button {
+  border: 0;
+  cursor: pointer;
+  transition: .25s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
+
+.screen {
+  min-height: 100vh;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 18px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  animation: fadeIn .8s ease;
+}
+
+.screen.active { display: flex; }
+
+.content {
+  width: min(900px, 100%);
+  margin: auto;
+  position: relative;
+  z-index: 2;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  color: #ffe0ed;
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: #ffd3e8;
+}
+
+h3 {
+  color: #ffe2ef;
+  font-size: 1.5rem;
+}
+
+p {
+  color: #eee5f7;
+  line-height: 1.95;
+  font-size: .98rem;
+}
+
+.script {
+  font-family: 'Pacifico', cursive;
+  color: #ffb8d9;
+}
+
+.subtitle {
+  color: #e9c7e8;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: .75rem;
+  margin-bottom: 14px;
+}
+
+.small {
+  font-size: .82rem;
+  color: #d6c5e6;
+}
+
+.btn {
+  padding: 13px 27px;
+  margin: 12px 6px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 600;
+  letter-spacing: .5px;
+  background: linear-gradient(110deg, #ff83ba, #a77aff);
+  box-shadow: 0 0 25px #ff80bd55;
+}
+
+.btn:hover {
+  box-shadow: 0 0 35px #ff80bd99;
+}
+
+.btn.secondary {
+  background: transparent;
+  border: 1px solid #ffffff75;
+  box-shadow: none;
+}
+
+.btn.no {
+  background: linear-gradient(110deg, #777, #514c68);
+  box-shadow: none;
+}
+
+input {
+  display: block;
+  width: min(340px, 90%);
+  margin: 22px auto 10px;
+  padding: 15px;
+  border-radius: 30px;
+  border: 1px solid #ffffff65;
+  background: #ffffff12;
+  color: white;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+}
+
+input::placeholder { color: #d9c8e7; }
+
+.error {
+  min-height: 25px;
+  color: #ff9dbd;
+}
+
+.emoji {
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 18px;
+}
+
+/* Animations */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.1); }
+}
+
+@keyframes glow {
+  50% { text-shadow: 0 0 35px #ff9acb, 0 0 65px #b67cff; }
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Floating stars and hearts */
+
+.floating {
+  position: fixed;
+  bottom: -40px;
+  z-index: 5;
+  pointer-events: none;
+  animation: floatUp linear forwards;
+}
+
+/* Loading */
+
+.loader {
+  width: min(400px, 90%);
+  height: 15px;
+  background: #ffffff20;
+  border-radius: 30px;
+  overflow: hidden;
+  margin: 28px auto;
+}
+
+#loadBar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff83ba, #bd8cff);
+  border-radius: 30px;
+  transition: width .08s;
+}
+
+#loadPercent {
+  color: #ffc2df;
+  font-size: 2.5rem;
+}
+
+/* Countdown */
+
+#countNumber {
+  font-size: clamp(6rem, 24vw, 12rem);
+  color: #ffadd1;
+  text-shadow: 0 0 50px #ff69b0;
+  animation: pulse .8s infinite;
+}
+
+/* Birthday */
+
+.birthday-title {
+  animation: glow 2s infinite;
+}
+
+.cake {
+  font-size: 5rem;
+  margin: 20px;
+}
+
+/* Bouquet */
+
+.bouquet {
+  font-size: clamp(7rem, 20vw, 12rem);
+  margin: 25px;
+  filter: drop-shadow(0 0 25px #ff9acb);
+  animation: pulse 2s infinite;
+}
+
+/* Letter */
+
+.letter {
+  max-width: 720px;
+  margin: 30px auto;
+  padding: 30px;
+  text-align: left;
+  border-radius: 15px;
+  background: linear-gradient(140deg, #fff4f8, #f7e4f0);
+  color: #653d52;
+  box-shadow: 0 0 35px #ff9acb35;
+}
+
+.letter h3 {
+  color: #bd5687;
+  margin-bottom: 15px;
+}
+
+.letter p {
+  color: #65465a;
+  margin: 13px 0;
+}
+
+/* Gift section */
+
+.gifts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 700px;
+  margin: 35px auto;
+}
+
+.gift {
+  color: white;
+  background: transparent;
+  padding: 15px 5px;
+}
+
+.gift-icon {
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 15px #ff9acb);
+}
+
+.gift strong {
+  color: #ffd5e8;
+  font-size: .9rem;
+}
+
+.gift-message {
+  max-width: 680px;
+  margin: 25px auto;
+  padding: 22px 12px;
+  border-top: 1px solid #ffffff45;
+  border-bottom: 1px solid #ffffff45;
+  animation: fadeIn .5s;
+}
+
+.gift-message p { margin: 10px 0; }
+
+/* Galaxy */
+
+.galaxy-area {
+  position: relative;
+  width: min(700px, 95vw);
+  height: min(620px, 75vh);
+  min-height: 440px;
+  margin: 30px auto;
+}
+
+.galaxy-ring {
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #e8b8ff66;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #b77cff22;
+}
+
+.galaxy-center {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background: radial-gradient(circle, #ffe1ef, #c276e8 55%, #5a348f);
+  box-shadow: 0 0 35px #e48aff, 0 0 85px #9e5bff;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.photo-orbit {
+  position: absolute;
+  width: 88px;
+  height: 112px;
+  border: 2px solid #ffc8e6;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 0 18px #d68bff;
+  cursor: pointer;
+  transition: .25s;
+  background: #493263;
+}
+
+.photo-orbit:hover {
+  transform: scale(1.13);
+  z-index: 10;
+  box-shadow: 0 0 30px #ffadd8;
+}
+
+.photo-detail {
+  max-width: 440px;
+  margin: 20px auto;
+  padding: 20px 10px;
+  border-top: 1px solid #ffffff50;
+  border-bottom: 1px solid #ffffff50;
+  animation: fadeIn .4s;
+}
+
+.photo-detail img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.photo-detail h3 { margin-top: 15px; }
+.photo-detail p { margin: 12px 0; }
+
+/* Beautiful memories ending */
+
+.section-heading {
+  margin: 65px auto 25px;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.memory-item {
+  min-width: 0;
+}
+
+.memory-item img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #f8c4e4;
+  box-shadow: 0 0 15px #d58bff55;
+}
+
+.memory-item p {
+  font-size: .75rem;
+  margin-top: 7px;
+  color: #f5cce4;
+}
+
+/* Final birthday */
+
+.final-title {
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  animation: glow 2s infinite;
+}
+
+.final-heart {
+  font-size: 5rem;
+  animation: pulse 1.2s infinite;
+}
+
+.signature {
+  font-family: 'Pacifico', cursive;
+  color: #ffb8d9;
+  font-size: 1.4rem;
+  margin-top: 20px;
+}
+
+@media(max-width: 600px) {
+  .gifts { gap: 5px; }
+  .gift-icon { font-size: 2.8rem; }
+  .gift strong { font-size: .72rem; }
+  .photo-orbit { width: 66px; height: 86px; }
+  .galaxy-center { width: 90px; height: 90px; }
+  .memory-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .memory-item img { height: 95px; }
+  .letter { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD -->
+
+<section class="screen active" id="passwordScreen">
+  <div class="content">
+    <span class="emoji">🔐</span>
+    <p class="subtitle">A little secret for someone special</p>
+    <h2>A Secret Birthday Surprise</h2>
+    <p>Only one special person can unlock this little world. ❤️</p>
+    <input id="passwordInput" type="text" placeholder="Enter your password">
+    <button class="btn" onclick="checkPassword()">UNLOCK MY SURPRISE 🔓</button>
+    <p class="error" id="passwordError"></p>
+  </div>
+</section>
+
+<!-- READY -->
+
+<section class="screen" id="readyScreen">
+  <div class="content">
+    <span class="emoji">🥰</span>
+    <p class="subtitle">Before we begin</p>
+    <h2 id="readyTitle">Are You Ready?</h2>
+    <p id="readyMessage">I have prepared something special just for you.</p>
+    <button class="btn" onclick="readyYes()">YES! ❤️</button>
+    <button class="btn no" onclick="readyNo()">NO 🙈</button>
+  </div>
+</section>
+
+<!-- LOADING -->
+
+<section class="screen" id="loadingScreen">
+  <div class="content">
+    <span class="emoji">🎮</span>
+    <p class="subtitle">Please wait a little</p>
+    <h2>Preparing Your Surprise...</h2>
+    <p>Collecting memories, happiness and birthday magic!</p>
+    <div class="loader"><div id="loadBar"></div></div>
+    <div id="loadPercent">0%</div>
+    <p id="loadText">Initializing birthday magic...</p>
+  </div>
+</section>
+
+<!-- SECOND READY -->
+
+<section class="screen" id="secondReadyScreen">
+  <div class="content">
+    <span class="emoji">🫢🎁</span>
+    <p class="subtitle">One last question</p>
+    <h2>Are You Ready for the Surprise?</h2>
+    <p>Something beautiful is waiting for you. Are you sure you want to open it?</p>
+    <button class="btn" onclick="secondYes()">YES, SHOW ME! ❤️</button>
+    <button class="btn no" onclick="secondNo()">NOT YET 🙈</button>
+    <p id="secondMessage"></p>
+  </div>
+</section>
+
+<!-- SECRET INTRO -->
+
+<section class="screen" id="introScreen">
+  <div class="content">
+    <span class="emoji">🤫💗</span>
+    <p class="subtitle">A little surprise made with love</p>
+    <h1>A Secret Birthday Surprise!</h1>
+    <p style="max-width:650px;margin:25px auto">
+      I have been secretly preparing something special for you.
+      Every little detail, every message and every memory
+      has been put together with lots of love and good wishes.
+    </p>
+    <h3>Today is not just another day. Today is YOUR day! ✨</h3>
+    <button class="btn" onclick="startCountdown()">START THE SURPRISE 🎁</button>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+
+<section class="screen" id="countdownScreen">
+  <div class="content">
+    <p class="subtitle">Your special moment is almost here</p>
+    <h2>Get Ready!</h2>
+    <div id="countNumber">10</div>
+    <p>Something beautiful is coming... ❤️</p>
+  </div>
+</section>
+
+<!-- BIRTHDAY -->
+
+<section class="screen" id="birthdayScreen">
+  <div class="content">
+    <div class="cake">🎂🎉🎈</div>
+    <p class="subtitle">A day made for you</p>
+    <h1 class="birthday-title">Happy Birthday</h1>
+    <h1 class="birthday-title">Cutie Pie! ❤️</h1>
+    <p style="max-width:650px;margin:20px auto">
+      Happy 17th Birthday! May your day be filled with
+      happiness, beautiful memories and countless reasons to smile.
+    </p>
+    <button class="btn" onclick="showBouquet()">OPEN YOUR LETTER 💌</button>
+  </div>
+</section>
+
+<!-- BOUQUET -->
+
+<section class="screen" id="bouquetScreen">
+  <div class="content">
+    <p class="subtitle">A little gift for you</p>
+    <h2>A Bouquet Just for You</h2>
+    <div class="bouquet">💐</div>
+    <p>A little bouquet for someone who deserves all the beautiful things in the world.</p>
+    <button class="btn" onclick="showLetter()">READ YOUR LETTER 💌</button>
+  </div>
+</section>
+
+<!-- LETTER -->
+
+<section class="screen" id="letterScreen">
+  <div class="content">
+    <p class="subtitle">Words from the heart</p>
+    <h2>A Letter for You</h2>
+
+    <div class="letter">
+      <h3>Happy Birthday, My Cutie Pie! ❤️</h3>
+
+      <p>Dear Cutie Pie,</p>
+
+      <p>
+        Aaja timro special day ho, ani ma chahanchu ki timro
+        face ma sadhai smile rahos. Happy 17th Birthday! 🥹❤️
+      </p>
+
+      <p>
+        Timi mero life ko ekdam special manche hau.
+        Timi sanga kura garda, hasda ra sano-sano moments
+        share garda pani din ramailo bancha.
+        Timi jasto chau, testai nai beautiful rahanu.
+      </p>
+
+      <p>
+        Ma wish garchu ki timro every dream pura hos.
+        Timile socheko harek ramro kura timro life ma aaos.
+        Timro journey sadhai happiness, success ra
+        beautiful memories le bharipurna hos.
+      </p>
+
+      <p>
+        Life ma jati nai ups and downs aaun,
+        afno smile kahile naharaunu.
+        Always believe in yourself, because timi
+        dherai kura achieve garna sakchau.
+      </p>
+
+      <p>
+        Thank you for being you.
+        I hope yo birthday timro lagi ekdam special
+        ra unforgettable hos.
+        Aaja ko din timro ho, so enjoy every moment!
+      </p>
+
+      <p>
+        May your new year bring you confidence,
+        new adventures, success and beautiful memories.
+      </p>
+
+      <p>Once again, Happy Birthday, my Cutie Pie! 🎂💗</p>
+
+      <p>With lots of love and warm wishes,</p>
+      <p><strong>Your special person ❤️</strong></p>
+    </div>
+
+    <button class="btn" onclick="showGifts()">CONTINUE TO YOUR GIFTS 🎁</button>
+  </div>
+</section>
+
+<!-- GIFTS -->
+
+<section class="screen" id="giftScreen">
+  <div class="content">
+    <p class="subtitle">Three little surprises</p>
+    <h2>Welcome to Your Special Day</h2>
+    <p>Three little gifts, each carrying a special wish for you.</p>
+
+    <div class="gifts">
+      <button class="gift" onclick="openGift(1)">
+        <span class="gift-icon">🎁</span>
+        <strong>Gift 1<br>Birthday Wishes</strong>
+      </button>
+
+      <button class="gift" onclick="openGift(2)">
+        <span class="gift-icon">📸</span>
+        <strong>Gift 2<br>Memory Photos</strong>
+      </button>
+
+      <button class="gift" onclick="openGift(3)">
+        <span class="gift-icon">💝</span>
+        <strong>Gift 3<br>Special Wish</strong>
+      </button>
+    </div>
+
+    <div class="gift-message" id="giftContent">
+      <p>Choose a gift to discover your little surprise. 💗</p>
+    </div>
+
+    <button class="btn" onclick="showGalaxy()">VISIT THE GALAXY 🌌</button>
+  </div>
+</section>
+
+<!-- GALAXY -->
+
+<section class="screen" id="galaxyScreen">
+  <div class="content">
+    <p class="subtitle">A universe of memories</p>
+    <h2>Our Little Galaxy 🌌</h2>
+    <p>20 photos, 20 wishes and countless beautiful memories.</p>
+    <p class="small">Select any photo to discover its special wish.</p>
+
+    <div class="galaxy-area" id="galaxy">
+      <div class="galaxy-ring"></div>
+      <div class="galaxy-center">❤️</div>
+    </div>
+
+    <div class="photo-detail" id="photoDetail" style="display:none">
+      <img id="selectedPhoto" src="" alt="Memory photo">
+      <h3 id="photoTitle">Wish 1 of 20</h3>
+      <p id="photoWish"></p>
+      <button class="btn secondary" onclick="changePhoto(-1)">← PREVIOUS</button>
+      <button class="btn secondary" onclick="changePhoto(1)">NEXT →</button>
+    </div>
+
+    <p class="small">Every picture has one special wish. ❤️</p>
+    <button class="btn" onclick="showFinal()">CONTINUE TO THE FINAL SURPRISE ✨</button>
+  </div>
+</section>
+
+<!-- FINAL: BEAUTIFUL MEMORIES + BIRTHDAY -->
+
+<section class="screen" id="finalScreen">
+  <div class="content">
+
+    <p class="subtitle">A few moments to remember</p>
+    <h2 class="section-heading">Beautiful Memories ✨</h2>
+    <p>
+      Every picture tells a little story.
+      Here are 20 little moments, each with a wish for you.
+    </p>
+
+    <div class="memory-grid" id="memoryGrid"></div>
+
+    <div class="section-heading">
+      <p class="subtitle">One last thing...</p>
+      <h2>Never Stop Smiling 💗</h2>
+    </div>
+
+    <p style="max-width:700px;margin:20px auto">
+      No matter where life takes you, never forget how special
+      you are. Keep smiling, keep dreaming and keep becoming
+      the person you want to be.
+    </p>
+
+    <p style="max-width:700px;margin:15px auto">
+      May you always find happiness in little things,
+      courage in difficult moments and reasons to be proud
+      of how far you have come.
+    </p>
+
+    <div style="margin:45px auto">
+      <div class="cake">🎂</div>
+      <p class="subtitle">Today is your day</p>
+      <h1 class="final-title">Happy Birthday</h1>
+      <h1 class="final-title">Cutie Pie! ❤️</h1>
+
+      <p style="max-width:650px;margin:20px auto">
+        I hope this little surprise brought a smile to your face.
+        Every message, every photo and every wish was prepared
+        to make your birthday a little more special.
+      </p>
+
+      <h3 style="margin-top:25px">
+        May your 17th year be filled with happiness,
+        success, laughter and unforgettable memories.
+      </h3>
+
+      <div class="final-heart" style="margin:25px">💖</div>
+
+      <p class="script">You deserve all the happiness in the world.</p>
+      <p class="signature">With lots of love and warm wishes ❤️</p>
+    </div>
+
+    <button class="btn" onclick="celebrate()">LET'S CELEBRATE! 🎊</button>
+    <button class="btn secondary" onclick="location.reload()">REPLAY YOUR SURPRISE ↻</button>
+
+  </div>
+</section>
+
+<script>
+
+/* =========================================
+   CUSTOMIZE YOUR WEBSITE HERE
+========================================= */
+
+const CONFIG = {
+  password: "2066",
+  birthdayName: "Cutie Pie",
+
+  // Put your 20 photos in the photos folder.
+  // Change jpg to png if your pictures are PNG files.
+  photos: Array.from(
+    { length: 20 },
+    (_, i) => `photos/${i + 1}.jpg`
+  )
+};
+
+/* =========================================
+   SCREEN NAVIGATION
+========================================= */
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0, 0);
+
+  if (id === "galaxyScreen") {
+    setTimeout(buildGalaxy, 100);
+  }
+
+  if (id === "finalScreen") {
+    buildMemoryGrid();
+  }
+}
+
+/* PASSWORD */
+
+function checkPassword() {
+  const entered =
+    document.getElementById("passwordInput").value.trim();
+
+  if (entered === CONFIG.password) {
+    document.getElementById("passwordError").textContent = "";
+    showScreen("readyScreen");
+  } else {
+    document.getElementById("passwordError").textContent =
+      "Oops! Wrong password. Try again ❤️";
+  }
+}
+
+document.getElementById("passwordInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") checkPassword();
+});
+
+/* FIRST READY */
+
+let noCount = 0;
+
+const noMessages = [
+  "Really? I prepared something special just for you! 🥺",
+  "Not even a little bit curious? 🙈",
+  "Your surprise is waiting patiently! 🎁",
+  "Take your time, the birthday magic is ready! ✨",
+  "One more chance... are you ready now? 💗",
+  "Whenever you're ready, your surprise will be here. ❤️"
+];
+
+function readyNo() {
+  document.getElementById("readyTitle").textContent =
+    noCount % 2 === 0
+      ? "Really, You're Not Ready? 🥹"
+      : "Are You Sure? 🙈";
+
+  document.getElementById("readyMessage").textContent =
+    noMessages[noCount % noMessages.length];
+
+  noCount++;
+}
+
+function readyYes() {
+  showScreen("loadingScreen");
+  startLoading();
+}
+
+/* LOADING */
+
+function startLoading() {
+  let progress = 0;
+
+  const bar = document.getElementById("loadBar");
+  const percent = document.getElementById("loadPercent");
+  const text = document.getElementById("loadText");
+
+  const messages = [
+    "Initializing birthday magic...",
+    "Collecting beautiful memories...",
+    "Preparing special wishes...",
+    "Adding extra happiness...",
+    "Almost ready..."
+  ];
+
+  const timer = setInterval(() => {
+    progress++;
+
+    bar.style.width = progress + "%";
+    percent.textContent = progress + "%";
+
+    if (progress % 20 === 0) {
+      text.textContent =
+        messages[Math.min(progress / 20 - 1, 4)];
+    }
+
+    if (progress >= 100) {
+      clearInterval(timer);
+      setTimeout(() => showScreen("secondReadyScreen"), 700);
+    }
+  }, 45);
+}
+
+/* SECOND READY */
+
+let secondNoCount = 0;
+
+const secondMessages = [
+  "Hehe! Your surprise is waiting for you. 🙈",
+  "Everything is ready. Just one YES! ✨",
+  "Are you curious now? Your birthday magic is waiting! 💝",
+  "No rush. Press YES whenever you're ready. ❤️"
+];
+
+function secondNo() {
+  document.getElementById("secondMessage").textContent =
+    secondMessages[secondNoCount % secondMessages.length];
+
+  secondNoCount++;
+}
+
+function secondYes() {
+  showScreen("introScreen");
+}
+
+/* COUNTDOWN */
+
+function startCountdown() {
+  showScreen("countdownScreen");
+
+  let number = 10;
+  const display = document.getElementById("countNumber");
+
+  display.textContent = number;
+
+  const timer = setInterval(() => {
+    number--;
+    display.textContent = number;
+
+    if (number <= 0) {
+      clearInterval(timer);
+      setTimeout(() => showScreen("birthdayScreen"), 700);
+    }
+  }, 1000);
+}
+
+/* BIRTHDAY FLOW */
+
+function showBouquet() {
+  showScreen("bouquetScreen");
+}
+
+function showLetter() {
+  showScreen("letterScreen");
+}
+
+function showGifts() {
+  showScreen("giftScreen");
+}
+
+/* THREE GIFTS */
+
+function openGift(number) {
+  const box = document.getElementById("giftContent");
+
+  const messages = {
+    1: `
+      <h3>Gift 1: Birthday Wishes 💌</h3>
+      <p>Happy Birthday, Cutie Pie! ❤️</p>
+      <p>May your life be full of happiness, love,
+      success and beautiful memories.</p>
+      <p>May every dream you carry in your heart
+      get closer to becoming reality.</p>
+      <p>Keep smiling, keep growing and never stop shining! ✨</p>
+    `,
+
+    2: `
+      <h3>Gift 2: Beautiful Memories 📸</h3>
+      <p>20 photos, 20 little wishes and countless memories.</p>
+      <p>Every photo has a special message waiting for you.</p>
+      <p>Visit the galaxy and discover them all! 🌌</p>
+    `,
+
+    3: `
+      <h3>Gift 3: A Special Wish 💝</h3>
+      <p>My special wish for you is that you always believe
+      in yourself and never stop chasing your dreams.</p>
+      <p>May your 17th year bring you new adventures,
+      wonderful opportunities and unforgettable memories.</p>
+      <p>You are special, appreciated and deserving of happiness. ❤️</p>
+    `
+  };
+
+  box.innerHTML = messages[number];
+}
+
+/* =========================================
+   20 PHOTOS + 20 INDIVIDUAL WISHES
+========================================= */
+
+const photoWishes = [
+  "Every photo has a memory, and every memory has a little happiness. ❤️",
+  "May your smile always be brighter than the stars. ✨",
+  "You deserve beautiful days and peaceful nights. 🌙",
+  "Keep shining in your own beautiful way. 🌸",
+  "May your dreams slowly turn into reality. 💫",
+  "Never stop being the wonderful person you are. 💗",
+  "Wishing you countless reasons to laugh. 😊",
+  "May happiness find you wherever you go. 🦋",
+  "Here's to more beautiful memories ahead. 📸",
+  "Your happiness matters. Always take care of yourself. ❤️",
+  "May every little wish in your heart come true. 🌷",
+  "Keep learning, growing and believing in yourself. ⭐",
+  "You make ordinary moments feel special. 💝",
+  "May your future be as bright as your smile. ☀️",
+  "More laughter, more adventures and more happy memories! 🎉",
+  "May this year bring you wonderful opportunities. 🌻",
+  "Always remember how special and appreciated you are. 💕",
+  "May your life be full of kindness and beautiful surprises. 🎁",
+  "Keep your heart happy and your dreams alive. 🌈",
+  "One final wish: may every day give you something to smile about. Happy Birthday! 🎂"
+];
+
+let currentPhoto = 0;
+
+/* BUILD CIRCULAR GALAXY */
+
+function buildGalaxy() {
+  const galaxy = document.getElementById("galaxy");
+
+  galaxy.querySelectorAll(".photo-orbit").forEach(photo => photo.remove());
+
+  const centerX = galaxy.clientWidth / 2;
+  const centerY = galaxy.clientHeight / 2;
+
+  const radiusX = Math.min(centerX - 48, 255);
+  const radiusY = Math.min(centerY - 55, 215);
+
+  CONFIG.photos.forEach((src, index) => {
+    const angle =
+      (Math.PI * 2 * index) / CONFIG.photos.length - Math.PI / 2;
+
+    const photo = document.createElement("img");
+
+    photo.src = src;
+    photo.alt = `Memory photo ${index + 1}`;
+    photo.className = "photo-orbit";
+
+    photo.style.left =
+      (centerX + Math.cos(angle) * radiusX - 44) + "px";
+
+    photo.style.top =
+      (centerY + Math.sin(angle) * radiusY - 56) + "px";
+
+    photo.onerror = () => {
+      photo.style.display = "none";
+    };
+
+    photo.addEventListener("click", () => selectPhoto(index));
+
+    galaxy.appendChild(photo);
+  });
+}
+
+/* ONE PHOTO = ONE WISH */
+
+function selectPhoto(index) {
+  currentPhoto = (index + CONFIG.photos.length) % CONFIG.photos.length;
+
+  const detail = document.getElementById("photoDetail");
+  const image = document.getElementById("selectedPhoto");
+
+  detail.style.display = "block";
+  image.src = CONFIG.photos[currentPhoto];
+
+  document.getElementById("photoTitle").textContent =
+    `Beautiful Memory ${currentPhoto + 1} of 20`;
+
+  document.getElementById("photoWish").textContent =
+    photoWishes[currentPhoto];
+
+  detail.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
+}
+
+function changePhoto(direction) {
+  selectPhoto(currentPhoto + direction);
+}
+
+/* FINAL BEAUTIFUL MEMORIES GRID */
+
+function buildMemoryGrid() {
+  const grid = document.getElementById("memoryGrid");
+
+  if (grid.dataset.built === "yes") return;
+
+  grid.dataset.built = "yes";
+
+  CONFIG.photos.forEach((src, index) => {
+    const item = document.createElement("div");
+    item.className = "memory-item";
+
+    const image = document.createElement("img");
+    image.src = src;
+    image.alt = `Beautiful memory ${index + 1}`;
+
+    image.onerror = () => {
+      item.style.display = "none";
+    };
+
+    const caption = document.createElement("p");
+    caption.textContent = `Wish ${index + 1} ❤️`;
+
+    item.appendChild(image);
+    item.appendChild(caption);
+
+    grid.appendChild(item);
+  });
+}
+
+/* FINAL SCREEN */
+
+function showFinal() {
+  showScreen("finalScreen");
+}
+
+/* FLOATING HEARTS AND STARS */
+
+function createFloating() {
+  const element = document.createElement("div");
+
+  const symbols = [
+    "❤️", "💖", "💕", "✨", "🌸",
+    "💗", "⭐", "💐"
+  ];
+
+  element.className = "floating";
+  element.textContent =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  element.style.left = Math.random() * 100 + "vw";
+  element.style.fontSize = (15 + Math.random() * 25) + "px";
+  element.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+  document.body.appendChild(element);
+
+  setTimeout(() => element.remove(), 10000);
+}
+
+setInterval(createFloating, 1000);
+
+function celebrate() {
+  for (let i = 0; i < 65; i++) {
+    setTimeout(createFloating, i * 50);
+  }
+}
+
+/* REBUILD GALAXY ON WINDOW RESIZE */
+
+window.addEventListener("resize", () => {
+  if (document.getElementById("galaxyScreen").classList.contains("active")) {
+    buildGalaxy();
+  }
+});
+
+</script>
+
+</body>
+</html>
